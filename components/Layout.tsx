@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
 
     --headline: #181818;
     --paragraph: #2e2e2e;
-    --lightText: #495464;
+    --lightText: #646e80;
 
     --primary: #4fc4cf;
     --secondary: #994ff3;

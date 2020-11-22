@@ -46,8 +46,12 @@ ol[class] {
 }
 
 /* A elements that don't have a class get default styles */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
 }
 
 /* Make images easier to work with */
@@ -66,7 +70,11 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+  /* font: inherit; */
+}
+
+button {
+  cursor: pointer;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */

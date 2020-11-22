@@ -1,5 +1,5 @@
 import React from "react";
-const Heart = ({ size = 20, color = "var(--grey)", fill = "none" }) => (
+const Heart = ({ size = 25, color = "var(--darkOutline)", fill = "none" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

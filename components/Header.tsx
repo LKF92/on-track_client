@@ -1,18 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { useQuery } from "@apollo/client";
 import User from "../icon/User";
-import { ARTIST_QUERY } from "../graphql/queries";
 import Search from "./Search";
 
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const { loading, error, data } = useQuery(ARTIST_QUERY, { variables: { id: 1455442 } });
-
-  if (loading) return <p>... fetching data ...</p>;
-  if (error) return <p>...something went wrong... {JSON.stringify(error)}</p>;
-
   return (
     <MyHeader>
       <div>

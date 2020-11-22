@@ -1,13 +1,13 @@
 import React from "react";
 
-export default function SearchIcon({ size = 20, color = "var(--grey)" }) {
+export default function SearchIcon({ size = 15, color = "var(--darkOutline)", fill = "white" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill}
       stroke={color}
       strokeWidth="2"
       strokeLinecap="butt"
