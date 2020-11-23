@@ -5,12 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "apollo:download": "apollo schema:download --endpoint=https://on-track-discogs.herokuapp.com/graphql schema.json",
+    "apollo:generate": "apollo codegen:generate --target=typescript  --endpoint=https://on-track-discogs.herokuapp.com/graphql --tagName=gql"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@apollo/client": "^3.2.6",
     "@types/styled-components": "^5.1.4",
+    "apollo": "^2.31.1",
     "graphql": "^15.4.0",
     "next": "10.0.1",
     "next-images": "^1.6.2",
