@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
-import EmptyLabel from "../../images/icon-label.png";
 import { ARTIST_QUERY } from "../../graphql/queries";
-import { getArtist, getArtistVariables } from "../../graphql/__generated__/getArtist";
+import { getArtist } from "../../graphql/__generated__/getArtist";
 import { initializeApollo } from "../../lib/apolloClient";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext } from "next";
+import DetailSection from "../../components/DetailSection";
+import { DetailsType } from "../../globals";
 
 interface Props {
   data: getArtist;
@@ -26,47 +27,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const artist = ({ data }: Props) => {
-  const {
-    name,
-    namevariations,
-    image,
-    aliases,
-    profile,
-    releases,
-    members,
-    urls,
-    groups,
-  } = data?.artist;
+  const { name, profile, image, aliases, releases, members, urls, groups } = data?.artist;
+  console.log(data.artist);
+
   return (
     <Layout>
-      <ArtistDetails>
-        <div className="artist-pic centered">
-          <img src={image || EmptyLabel} alt={`${name} cover`} />
-        </div>
-        <div className="artist-details">
-          <h2>{name}</h2>
-        </div>
-      </ArtistDetails>
+      <ArtistPage>
+        <DetailSection
+          name={name}
+          image={image}
+          details={[
+            { title: "Profile", content: profile },
+            { title: DetailsType.Aliases, content: aliases },
+            { title: DetailsType.Members, content: members },
+            { title: DetailsType.Groups, content: groups },
+            { title: DetailsType.Urls, content: urls },
+          ]}
+        />
+      </ArtistPage>
     </Layout>
   );
 };
 
 export default artist;
 
-const ArtistDetails = styled.section`
-  display: flex;
+const Discography = styled.section``;
 
-  .artist-pic {
-    max-width: 200px;
-    max-height: 200px;
-    img {
-      object-fit: contain;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .artist-details {
-    margin-left: 10px;
-  }
-`;
+const ArtistPage = styled.div``;

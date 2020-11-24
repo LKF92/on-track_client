@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Header from "./Header";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 type LayoutProps = {
   title?: string;
@@ -9,18 +9,27 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children, title }) => (
   <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <Header />
-    {children}
-    <GlobalStyle />
+    <MyApp>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Header />
+      <main>{children}</main>
+      <GlobalStyle />
+    </MyApp>
   </div>
 );
 
 export default Layout;
+
+const MyApp = styled.div`
+  main {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
     body {

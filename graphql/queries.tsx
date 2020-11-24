@@ -7,7 +7,6 @@ const ARTIST_QUERY = gql`
       id
       image
       aliases {
-        resourceUrl
         id
         name
       }
@@ -19,15 +18,13 @@ const ARTIST_QUERY = gql`
         format
       }
       members {
-        name
         id
+        name
       }
       urls
       groups {
         id
         name
-        active
-        resourceUrl
       }
       profile
       namevariations
@@ -41,6 +38,12 @@ const LABEL_QUERY = gql`
       name
       id
       image
+      profile
+      subLabel {
+        id
+        name
+      }
+      urls
       releases {
         id
         format
