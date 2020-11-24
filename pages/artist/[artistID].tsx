@@ -2,24 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
 import EmptyLabel from "../../images/icon-label.png";
-import ContentRow from "../../components/ContentRow";
-import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
 import { ARTIST_QUERY } from "../../graphql/queries";
 import { getArtist, getArtistVariables } from "../../graphql/__generated__/getArtist";
+import { initializeApollo } from "../../lib/apolloClient";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-interface Props {}
+interface Props {
+  data: getArtist;
+}
 
-const artist = (props: Props) => {
-  const router = useRouter();
-  console.log("router", router);
-  const { artistID } = router.query;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { artistID } = context.params;
 
-  const { data, loading, error } = useQuery<getArtist, getArtistVariables>(ARTIST_QUERY, {
-    variables: { id: artistID.toString() },
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
+    query: ARTIST_QUERY,
+    variables: { id: artistID },
   });
-  if (error) return <p> ... something went wrong ... {JSON.stringify(error)}</p>;
-  if (loading) return <Layout>...fetching...</Layout>;
+
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
+}
+
+const artist = ({ data }: Props) => {
   const {
     name,
     namevariations,
@@ -33,18 +39,14 @@ const artist = (props: Props) => {
   } = data?.artist;
   return (
     <Layout>
-      {loading ? (
-        <p>... fetching data ... </p>
-      ) : (
-        <ArtistDetails>
-          <div className="artist-pic centered">
-            <img src={image || EmptyLabel} alt={`${name} cover`} />
-          </div>
-          <div className="artist-details">
-            <h2>{name}</h2>
-          </div>
-        </ArtistDetails>
-      )}
+      <ArtistDetails>
+        <div className="artist-pic centered">
+          <img src={image || EmptyLabel} alt={`${name} cover`} />
+        </div>
+        <div className="artist-details">
+          <h2>{name}</h2>
+        </div>
+      </ArtistDetails>
     </Layout>
   );
 };

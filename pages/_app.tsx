@@ -1,18 +1,14 @@
-import type { AppProps } from "next/app";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+import { useApollo } from "../lib/apolloClient";
+
 import "../styles/globals.css";
 
-const client = new ApolloClient({
-  uri: "https://on-track-discogs.herokuapp.com/graphql",
-  cache: new InMemoryCache(),
-});
+export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps);
 
-function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
   );
 }
-
-export default MyApp;
